@@ -32,9 +32,9 @@ class Vehicle:
         self.max_speed = max_speed
         self.capacity = capacity
 
-
     def vroom(self) -> None:
         return "Vroom " * self.max_speed
+
 
 class Bus(Vehicle):
     def fare(self, age: float) -> None:
