@@ -38,19 +38,19 @@ class Vehicle:
 
 class Bus(Vehicle):
     def fare(self, age: float) -> None:
-        fare = ""
+        fare_status = ""
 
         if age in range(18) or 61 <= age:
-            fare = "free"
-            print(f"The fare of the bus ride is {fare}")
+            fare_status = "free"
+            print(f"The fare of the bus ride is {fare_status}")
         elif age < 0:
             print("come back once you are conceived")
         else:
-            fare = "$5"
-            print(f"the fare of the bus ride is {fare}")
+            fare_status = "$5"
+            print(f"the fare of the bus ride is {fare_status}")
 
 
-some_vehicle = Vehicle("car", 10, 5)
+some_vehicle = Vehicle("car", 20, 5)
 # some_vehicle.__init__("car", 10, 5)
 print(some_vehicle.vroom())
 
