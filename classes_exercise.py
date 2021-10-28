@@ -33,11 +33,16 @@ class Vehicle:
         self.capacity = capacity
 
     def vroom(self) -> None:
-        return "Vroom " * self.max_speed
+        """Prints 'Vroom' max_speed times"""
+        print("Vroom " * self.max_speed)
 
 
 class Bus(Vehicle):
+    """Bus is a Vehicle that can drive humans around in it"""
+
     def fare(self, age: float) -> None:
+        """Tells how much fare is for a particular age"""
+
         fare_status = ""
 
         if age in range(18) or 61 <= age:
@@ -50,13 +55,15 @@ class Bus(Vehicle):
             print(f"the fare of the bus ride is {fare_status}")
 
 
-some_vehicle = Vehicle("car", 20, 5)
+some_vehicle = Vehicle("car", 10, 5)
 # some_vehicle.__init__("car", 10, 5)
-print(some_vehicle.vroom())
+some_vehicle.vroom()
 
-some_bus = Bus("car", 10, 5)
-print(some_bus.fare(18))
-print(some_bus.fare(1))
-print(some_bus.fare(-1))
-print(some_bus.fare(62))
+some_bus = Bus("Translink Bus", 100, 35)
+some_bus.fare(18)
 
+some_bus.fare(-1)
+some_bus.fare(61)
+some_bus.fare(0)
+some_bus.fare(17)
+some_bus.fare(60)
