@@ -21,10 +21,11 @@ Methods:
 """
 
 class Vehicle:
-    """
-    name: str
-    max_speed: int
-    capacity: int
+    """Represents a vehicle
+    Attributes:
+        name: name of vehicle
+        max_speed: maximum speed in km/hr
+        capacity: how many people it can hold
     """
 
     def __init__(self, name: str, max_speed: int, capacity: int):
@@ -55,7 +56,7 @@ class Bus(Vehicle):
             print(f"the fare of the bus ride is {fare_status}")
 
 
-some_vehicle = Vehicle("car", 10, 5)
+some_vehicle = Vehicle("car", 70, 5)
 # some_vehicle.__init__("car", 10, 5)
 some_vehicle.vroom()
 
