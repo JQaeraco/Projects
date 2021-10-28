@@ -1,6 +1,6 @@
 # Constants
 
-Introduction = """Welcome to Midnight Rider
+INTRODUCTION = """Welcome to Midnight Rider
 
 WE'VE STOLEN A CAR. WE NEED TO GET IT HOME.
 THE CAR IS SPECIAL.
@@ -12,4 +12,10 @@ WE CAN't LET THEM HAVE IT.
 ONE GOAL: SURVIVAL.... AND THE CAR
 REACH THE SAFEHOUSE BEFORE THE MAN
 GON GETCHU.
+"""
+
+CHOICES = """
+    --- Your Choices ---
+    Q. Quit the game.
+    ---
 """
