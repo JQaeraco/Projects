@@ -12,11 +12,16 @@ class Game:
     Attribute:
         done: describes if the game is
                 finished or not - bool
+        distance_traveled: Describe the distance that we've traveled so far in this game, in km
+        amount_of_sustenance: How much food we have left in our inventory
+        agents_distance: describes the distance between the player and the agent.
     """
 
     def __init__(self):
         self.done = False
-
+        self.distance_traveled = 0
+        self.amount_of_sustenance = 3
+        self.agents_distance = -20
 
     def introduction(self) -> None:
         """Print the introduction text"""
@@ -41,13 +46,20 @@ class Game:
         user_choice = input().strip(",.?!").lower()
 
         # Based on their choice, change the attribute of the class
-        if user_choice == "q":
+        if user_choice == "e":
+            print("---Status Check---")
+            print(f"Distance traveled: {self.distance_traveled}kms")
+            print(f"Amount of food left: {self.amount_of_sustenance}")
+            print(f"Agent's Distance: {abs(self.agents_distance)} km behind")
+            time.sleep(1.3)
+
+        elif user_choice == "q":
             self.done = True
 
 
 def main() -> None:
     game = Game() # starting a new game
-    game.introduction()
+    # game.introduction()
 
     # Main Loop:
     while not game.done:
