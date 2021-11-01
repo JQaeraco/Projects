@@ -51,7 +51,7 @@ class Game:
         the environment"""
         # Get the user's response
         user_choice = input().strip(",.?!").lower()
-
+        agents_distance_now = random.randrange(7, 15)
         # Based on their choice, change the attribute of the class
         if user_choice == "e":
             print("---Status Check---")
@@ -66,9 +66,31 @@ class Game:
             self.done = True
         elif user_choice == "d":
             self.fuel = MAX_FUEL
-            self.agents_distance += random.randrange(7, 15)
+            self.agents_distance += agents_distance_now
             print(midnight_rider_text.REFUEL)
             time.sleep(1.3)
+        elif user_choice ==  "c":
+            # Move the player
+            player_distance_now = random.randrange(10, 16)
+            self.distance_traveled += player_distance_now
+            # Move the agents
+            self.agents_distance += agents_distance_now - player_distance_now
+            # Burn the fuel
+            self.fuel -= random.randrange(5, 11)
+            # Give the player some feedback
+            print(f"---------ZOOOOOOM.")
+            print(f"----------You traveled {player_distance_now} km")
+        elif user_choice == "b":
+            # Move the player
+            player_distance_now = random.randrange(5, 10)
+            self.distance_traveled += player_distance_now
+            # Move the agents
+            self.agents_distance += agents_distance_now - player_distance_now
+            # Burn the fuel
+            self.fuel -= random.randrange(3, 8)
+            # Give the player some feedback
+            print(f"---------You drive conservatively.")
+            print(f"----------You traveled {player_distance_now} km")
 def main() -> None:
     game = Game() # starting a new game
     # game.introduction()
