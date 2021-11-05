@@ -14,6 +14,10 @@ MAX_FOOD = 3
 MAX_HUNGER = 50
 ENDGAME_REASONS = {
     "LOSE_AGENTS": 1,
+    "LOSE_FUEL": 2,
+    "LOSE_HUNGER": 3,
+
+
 }
 
 class Game:
@@ -135,6 +139,14 @@ class Game:
             self.done = True
             # Helps with printing the right ending
             self.endgame_reason = ENDGAME_REASONS["LOSE_AGENTS"]
+        if self.fuel <= 0:
+            self.done = True
+
+            self.endgame_reason = ENDGAME_REASONS["LOSE_FUEL"]
+        if self.hunger > MAX_HUNGER:
+            self.done = True
+
+            self.endgame_reason = ENDGAME_REASONS["LOSE_HUNGER"]
 
 def main() -> None:
     game = Game() # starting a new game
