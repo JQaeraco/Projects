@@ -12,11 +12,13 @@ import midnight_rider_text
 MAX_FUEL = 50
 MAX_FOOD = 3
 MAX_HUNGER = 50
+MAX_DISTANCE = 100
+FOOD_REFILL_PERCENTAGE = 0.1    # 10%
 ENDGAME_REASONS = {
     "LOSE_AGENTS": 1,
     "LOSE_FUEL": 2,
     "LOSE_HUNGER": 3,
-
+    "WIN": 4
 
 }
 
@@ -93,7 +95,7 @@ class Game:
             # Move the agents
             self.agents_distance += agents_distance_now - player_distance_now
             # Burn the fuel
-            self.fuel -= random.randrange(5, 11)
+            self.fuel -= random.randrange(7, 15)
             # Give the player some feedback
             print(f"---------ZOOOOOOM.")
             print(f"----------You traveled {player_distance_now} km")
@@ -125,12 +127,20 @@ class Game:
 
 
     def upkeep(self) -> None:
-        """Give the user reminders of hunger"""
+        """Give the user reminders of hunger
+
+        Processs random events."""
         if self.hunger > 40:
             print(midnight_rider_text.SEVERE_HUNGER)
         elif self.hunger > 25:
             print(midnight_rider_text.HUNGER)
 
+        # A percentage of time, the food bag is filled by the dog
+        if random.random() <= FOOD_REFILL_PERCENTAGE and self.amount_of_sustenance < MAX_FOOD:
+            # refill the food
+            self.amount_of_sustenance = MAX_FOOD
+            # display some text
+            print(midnight_rider_text.REFILL_FOOD)
     def check_endgame(self) -> None:
         """Check to see if win/lose conditions are met.
         If they're met, change the self.done flag."""
@@ -147,6 +157,12 @@ class Game:
             self.done = True
 
             self.endgame_reason = ENDGAME_REASONS["LOSE_HUNGER"]
+        if self.distance_traveled >= MAX_DISTANCE:
+            self.done = True
+
+            self.endgame_reason = ENDGAME_REASONS["WIN"]
+
+
 
 def main() -> None:
     game = Game() # starting a new game
