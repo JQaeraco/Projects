@@ -3,7 +3,7 @@
 # 9 November 2021
 
 # Get introduced to pygame and fraw objects on screen
-
+import random
 import pygame
 
 pygame.init()
@@ -13,6 +13,7 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
+PINK = (255, 190, 190)
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -36,9 +37,14 @@ def main() -> None:
         # Change the environment
 
         # Draw the environment
-        screen.fill(WHITE)
+        screen.fill(PINK)
         for i in range(11):
-            pygame.draw.rect(screen, RED, [100+i*1, 100+i*10, 75, 30])
+            pygame.draw.rect(screen, RED, [100+i*50, 100+i*10, 75, 30+i*i])
+        pygame.draw.circle(screen, GREEN, [600, 300], 100)
+        for i in range(10):
+            pygame.draw.arc(screen, BLUE,[90,70, 1000+i*4, 8600+i*3], 180, 480*i)
+        for i in range(50):
+            pygame.draw.circle(screen, (134, 189, 234), [i*random.randint(0, 800), i*random.randint(30, 600)], random.randint(7, 40))
         # Update the screen
         pygame.display.flip()
         # Tick the clock
