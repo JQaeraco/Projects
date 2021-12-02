@@ -3,6 +3,7 @@
 # 2021 Version
 
 import random
+import time
 import pygame
 
 pygame.init()
@@ -31,6 +32,7 @@ class Player(pygame.sprite.Sprite):
             representation of our Block
         rect: numerical representation of
             our Block [x, y, width, height]
+        hp: describes how much health our player has
     """
     def __init__(self) -> None:
         # Call the superclass constructor
@@ -42,6 +44,12 @@ class Player(pygame.sprite.Sprite):
         # Based on the image, create a Rect for the block
         self.rect = self.image.get_rect()
 
+        # initial health points
+        self.hp = 200
+
+    def hp_remaining(self) -> int:
+        """Return the percent of health remaining"""
+        return self.hp / 200
 
 class Block(pygame.sprite.Sprite):
     """"describes a block object
@@ -81,7 +89,7 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load("./images/enemy_spider.png")
-        self.image = pygame.transform.scale(self.image, (148, 125))
+        self.image = pygame.transform.scale(self.image, (148 * 0.5, 125 * 0.5))
 
         self.rect = self.image.get_rect()
         # Define the initial location
@@ -129,6 +137,10 @@ def main() -> None:
     num_blocks = 100
     score = 0
     num_enemies = 10
+    time_start = time.time()
+    time_invincible = 5
+
+    font = pygame.font.SysFont("Arial", 25)
 
     # Create a groups to hold sprites
     all_sprites = pygame.sprite.Group()
@@ -178,22 +190,50 @@ def main() -> None:
         # ----------- CHANGE ENVIRONMENT
         # Process player movement based on mouse pos
         mouse_pos = pygame.mouse.get_pos()
-        player.rect.x, player.rect.y = mouse_pos
+        player.rect.x = mouse_pos[0] - player.rect.width / 2
+        player.rect.y = mouse_pos[1] - player.rect.height / 2
 
         # Update the location of all sprites
         all_sprites.update()
 
         # Check all collisons between the player and all blocks
-        blocks_collided = pygame.sprite.spritecollide(player, block_sprites, True)
 
-        for block in blocks_collided:
-            score += 1
-            print(f"Score: {score}")
+
+        # Check all collisions between player and the ENEMIES
+        enemies_collided = pygame.sprite.spritecollide(player, enemy_sprites, False)
+
+        # Set a time for invincibility at the beginning of the game
+        if time.time() - time_start > time_invincible:
+            for enemy in enemies_collided:
+                if player.hp > 0:
+                    player.hp -= 3
+                    print(player.hp) # debugging
+
+            blocks_collided = pygame.sprite.spritecollide(player, block_sprites, True)
+
+            for block in blocks_collided:
+                score += 1
+
         # ----------- DRAW THE ENVIRONMENT
         screen.fill(BLACK)      # fill with bgcolor
 
         # Draw all sprites
         all_sprites.draw(screen)
+
+        # Draw the score on the screen
+        screen.blit(
+            font.render(f"Score: {score}", True, WHITE),
+            (5, 5)
+        )
+
+        # Draw a health bar
+        # Draw background rectangle
+        pygame.draw.rect(screen, BLUE, [580, 5, 215, 20])
+        # Draw the foreground rectangle which is the remaining health
+        life_remaining = 215 - int(215 * player.hp_remaining())
+        pygame.draw.rect(screen, RED, [580, 5, life_remaining, 20])
+
+
 
         # Update the screen
         pygame.display.flip()

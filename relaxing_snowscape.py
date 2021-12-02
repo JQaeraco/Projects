@@ -6,6 +6,7 @@
 import pygame
 import random
 
+
 pygame.init()
 
 WHITE = (255, 255, 255)
@@ -18,7 +19,7 @@ BGCOLOUR = (100, 100, 255)
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 SCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
-WINDOW_TITLE = "<<Your Title Here>>"
+WINDOW_TITLE = "<<Relaxing Snowscape>>"
 
 
 class Snowflake:
